@@ -37,15 +37,14 @@ class Pet(models.Model):
     species = models.ForeignKey(Species, on_delete=models.SET_NULL,
                                 blank=True, null=True,
                                 verbose_name='Разновидность',
-                                related_name='pets')
+                                related_name='species')
     breed = models.ForeignKey(Breed, on_delete=models.SET_NULL,
                               blank=True, null=True,
-                              related_name='pets',
                               verbose_name='Порода')
     description = models.TextField(blank=True, null=True,
                                    verbose_name='Описание')
     master = models.ForeignKey(User, on_delete=models.CASCADE, blank=True,
-                               verbose_name='Владелец', related_name='pets')
+                               verbose_name='Владелец')
 
     class Meta:
         verbose_name = 'Питомец'
@@ -53,3 +52,18 @@ class Pet(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Tag(models.Model):
+    """
+    Stores a single Tag entry.
+    """
+    title = models.CharField('Имя тега', max_length=50, db_index=True)
+    display_name = models.CharField('Имя тега для шаблона', max_length=50)
+
+    class Meta:
+        verbose_name = 'тег'
+        verbose_name_plural = 'теги'
+
+    def __str__(self):
+        return self.title

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
+    'pets',
 ]
 
 MIDDLEWARE = [
@@ -131,3 +132,5 @@ AUTH_USER_MODEL = 'users.User'
 
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+
+PAGINATION_PAGE_SIZE = 6
