@@ -1,0 +1,12 @@
+{% extends '../base/base.html' %}
+
+{% load static %}
+
+{% block title %}400{% endblock %}
+
+{% block content %}
+  <div class="container-fluid body-content">
+    <p class="lead">Ошибка 400</p>
+    <a class="btn btn-primary" href="{% url 'index' %}">Перейти на главную</a>
+  </div>
+{% endblock %}
