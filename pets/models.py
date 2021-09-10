@@ -20,7 +20,7 @@ class Breed(models.Model):
     species = models.ForeignKey(Species, on_delete=models.SET_NULL,
                                 blank=True, null=True,
                                 verbose_name='Разновидность',
-                                related_name='pets')
+                                related_name='breed')
 
     class Meta:
         verbose_name = 'Порода'
@@ -37,14 +37,16 @@ class Pet(models.Model):
     species = models.ForeignKey(Species, on_delete=models.SET_NULL,
                                 blank=True, null=True,
                                 verbose_name='Разновидность',
-                                related_name='species')
+                                related_name='pets')
     breed = models.ForeignKey(Breed, on_delete=models.SET_NULL,
                               blank=True, null=True,
-                              verbose_name='Порода')
+                              verbose_name='Порода',
+                              related_name='pets')
     description = models.TextField(blank=True, null=True,
                                    verbose_name='Описание')
     master = models.ForeignKey(User, on_delete=models.CASCADE, blank=True,
-                               verbose_name='Владелец')
+                               verbose_name='Владелец',
+                               related_name='pets')
 
     class Meta:
         verbose_name = 'Питомец'
