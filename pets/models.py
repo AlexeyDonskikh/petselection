@@ -52,22 +52,8 @@ class Pet(models.Model):
 
     class Meta:
         verbose_name = 'Питомец'
-        verbose_name_plural = 'Питомец'
+        verbose_name_plural = 'Питомцы'
 
     def __str__(self):
         return self.name
 
-
-class Tag(models.Model):
-    """
-    Stores a single Tag entry.
-    """
-    title = models.CharField('Имя тега', max_length=50, db_index=True)
-    display_name = models.CharField('Имя тега для шаблона', max_length=50)
-
-    class Meta:
-        verbose_name = 'тег'
-        verbose_name_plural = 'теги'
-
-    def __str__(self):
-        return self.title

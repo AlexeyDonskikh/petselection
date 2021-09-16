@@ -1,0 +1,11 @@
+{% load user_filters %}
+
+<div class="card">
+    <img class="card-img-top" src="..." alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">{{ post.pet.name }}</h5>
+        <p class="card-text">{{ post.pet.breed }}</p>
+        <p class="card-text">{{ post.text }}</p>
+        <p class="card-text"><small class="text-muted"> Добавлено: {{ post.pub_date }}</small></p>
+    </div>
+</div>
