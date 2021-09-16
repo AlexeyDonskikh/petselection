@@ -48,6 +48,7 @@ class Pet(models.Model):
     master = models.ForeignKey(User, on_delete=models.CASCADE, blank=True,
                                verbose_name='Владелец',
                                related_name='pets')
+    date_adding = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = 'Питомец'

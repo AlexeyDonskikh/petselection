@@ -1,4 +1,6 @@
 {% extends "../base/base.html" %}
+{% load bootstrap_pagination %}
+
 {% block title %} Последние обновления {% endblock %}
 
 {% block content %}
@@ -8,11 +10,18 @@
         <h1> Последние обновления на сайте</h1>
         <!-- Вывод ленты записей -->
 
+        <div class="card-group">
+            {% for pet in pets %}
+                {% include './includes/petCard.html' with pet=pet %}
+            {% endfor %}
+        </div>
 
     </div>
 
-        {% if page.has_other_pages %}
-            {% include "includes/paginator.html" with items=page paginator=paginator%}
-        {% endif %}
+    <div class="row">
+        <div class="col-md-12">
+            {% bootstrap_paginate page_obj range=7 show_prev_next="false" show_first_last="true" %}
+        </div>
+    </div>
 
 {% endblock %}

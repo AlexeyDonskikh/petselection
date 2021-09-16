@@ -1,9 +1,9 @@
 from django.urls import path
 
 
-from pets.views import index
+from pets.views import PetListView
 
 
 urlpatterns = [
-    path('', index, name='index'),
+    path('', PetListView.as_view(), name='index'),
     ]
