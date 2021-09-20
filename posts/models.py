@@ -22,6 +22,7 @@ class Group(models.Model):
 class Post(models.Model):
     pet = models.ForeignKey(Pet, blank=False, on_delete=models.CASCADE,
                             verbose_name='Питомец')
+    slug = models.SlugField(unique=True)
     text = models.TextField(verbose_name='Текст поста')
     pub_date = models.DateTimeField("Дата публикации",
                                     auto_now_add=True,
