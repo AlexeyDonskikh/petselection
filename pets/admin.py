@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from pets.models import Pet, Species, Breed
+from pets.models import Breed, ImagePet, Pet, Species
 
 
 class PetAdmin(admin.ModelAdmin):
@@ -39,6 +39,19 @@ class BreedAdmin(admin.ModelAdmin):
     empty_value_display = '-пусто-'
 
 
+class ImagePetAdmin(admin.ModelAdmin):
+    list_display = (
+        'pet', 'image', 'image_name',
+    )
+    fields = (
+        'pet', 'image', 'image_name',
+    )
+    search_fields = ('pet',)
+    list_filter = ('pet',)
+    empty_value_display = '-пусто-'
+
+
 admin.site.register(Pet, PetAdmin)
 admin.site.register(Species, SpeciesAdmin)
 admin.site.register(Breed, BreedAdmin)
+admin.site.register(ImagePet, ImagePetAdmin)

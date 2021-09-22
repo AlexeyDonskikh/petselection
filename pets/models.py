@@ -1,4 +1,5 @@
 from django.db import models
+
 from users.models import User
 
 
@@ -57,3 +58,19 @@ class Pet(models.Model):
     def __str__(self):
         return self.name
 
+
+class ImagePet(models.Model):
+    image_name = models.TextField(max_length=30, blank=True, default='image',
+                                  verbose_name='Название фотографии')
+    pet = models.ForeignKey(Pet, on_delete=models.CASCADE, blank=True,
+                            verbose_name='Фото питомца',
+                            related_name='images')
+    image = models.ImageField('Изображение', upload_to='pet_images/',
+                              blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Фотография питомца'
+        verbose_name_plural = 'Фотографии питомца'
+
+    def __str__(self):
+        return self.image_name

@@ -1,11 +1,7 @@
 from django.conf import settings
+from django.views.generic import DetailView, ListView
+
 from posts.models import Post
-
-
-from django.views.generic import (
-    ListView,
-    DetailView,
-)
 
 
 class PostListView(ListView):

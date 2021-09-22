@@ -22,31 +22,31 @@ urlpatterns = [
         ),
         name='password_change'
     ),
-    path(
-        'password-change-done/',
-        auth_views.PasswordChangeDoneView.as_view(
-            template_name='auth/changePasswordDone.html'
-        ),
-        name='password_change_done'
-    ),
-    path('password-reset/', auth_views.PasswordResetView.as_view(
-        template_name='auth/resetPassword.html'
-        ),
-        name='password_reset'
-    ),
-    path(
-        'password-reset-done/',
-        auth_views.PasswordResetDoneView.as_view(
-            template_name='auth/resetPasswordDone.html'
-        ),
-        name='password_reset_done'
-    ),
-    path(
-        r'^password/reset/(?P<uidb64>[0-9A-Za-z_\-]+)/'
-        r'(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-        auth_views.PasswordResetConfirmView.as_view(
-            template_name='auth/resetPasswordConfirm.html'
-        ),
-        name='password_reset_confirm'
-    ),
+    # path(
+    #     'password-change-done/',
+    #     auth_views.PasswordChangeDoneView.as_view(
+    #         template_name='auth/changePasswordDone.html'
+    #     ),
+    #     name='password_change_done'
+    # ),
+    # path('password-reset/', auth_views.PasswordResetView.as_view(
+    #     template_name='auth/resetPassword.html'
+    #     ),
+    #     name='password_reset'
+    # ),
+    # path(
+    #     'password-reset-done/',
+    #     auth_views.PasswordResetDoneView.as_view(
+    #         template_name='auth/resetPasswordDone.html'
+    #     ),
+    #     name='password_reset_done'
+    # ),
+    # path(
+    #     r'^password/reset/(?P<uidb64>[0-9A-Za-z_\-]+)/'
+    #     r'(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+    #     auth_views.PasswordResetConfirmView.as_view(
+    #         template_name='auth/resetPasswordConfirm.html'
+    #     ),
+    #     name='password_reset_confirm'
+    # ),
 ]

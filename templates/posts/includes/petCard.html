@@ -1,7 +1,12 @@
 {% load user_filters %}
+{% load thumbnail %}
 
 <div class="card">
-    <img class="card-img-top" src="..." alt="Card image cap">
+    {% thumbnail post.pet.images.image '960x500' crop='center' as im %}
+        <img class="card-img-top" src="{{ im.url }}" alt="Card image cap"/>
+        <p>sdfsdf</p>
+    {% endthumbnail %}
+    <p> {{ post.pet.images }} </p>
     <div class="card-body">
         <h5 class="card-title">{{ post.pet.name }}</h5>
         <p class="card-text">{{ post.pet.breed }}</p>
