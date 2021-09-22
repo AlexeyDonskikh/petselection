@@ -2,11 +2,11 @@
 {% load thumbnail %}
 
 <div class="card">
-    {% thumbnail post.pet.images.image '960x500' crop='center' as im %}
+
+    {% thumbnail post.pet.images.last.image '960x500' crop='center' as im %}
         <img class="card-img-top" src="{{ im.url }}" alt="Card image cap"/>
-        <p>sdfsdf</p>
     {% endthumbnail %}
-    <p> {{ post.pet.images }} </p>
+
     <div class="card-body">
         <h5 class="card-title">{{ post.pet.name }}</h5>
         <p class="card-text">{{ post.pet.breed }}</p>

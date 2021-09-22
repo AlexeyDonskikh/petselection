@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.views.generic import DetailView, ListView
 
+from pets.models import ImagePet
 from posts.models import Post
 
 

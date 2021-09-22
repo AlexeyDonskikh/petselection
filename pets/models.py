@@ -72,5 +72,9 @@ class ImagePet(models.Model):
         verbose_name = 'Фотография питомца'
         verbose_name_plural = 'Фотографии питомца'
 
-    def __str__(self):
-        return self.image_name
+
+
+    # def latest_image(self):
+    #     return Rating.objects.values('rating').filter(von_location=self).order_by(
+    #         '-id')[0]
+

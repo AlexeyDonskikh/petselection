@@ -1,6 +1,6 @@
 from django.db import models
 
-from pets.models import Pet
+from pets.models import Pet, ImagePet
 from users.models import User
 
 
@@ -40,6 +40,7 @@ class Post(models.Model):
     class Meta:
         verbose_name = 'Пост'
         verbose_name_plural = 'Посты'
+        ordering = ["-pub_date"]
 
 
 class Comment(models.Model):
