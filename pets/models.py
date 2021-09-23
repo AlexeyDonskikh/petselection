@@ -71,10 +71,3 @@ class ImagePet(models.Model):
     class Meta:
         verbose_name = 'Фотография питомца'
         verbose_name_plural = 'Фотографии питомца'
-
-
-
-    # def latest_image(self):
-    #     return Rating.objects.values('rating').filter(von_location=self).order_by(
-    #         '-id')[0]
-
