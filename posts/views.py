@@ -1,7 +1,6 @@
 from django.conf import settings
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, CreateView
 
-from pets.models import ImagePet
 from posts.forms import CommentForm
 from posts.models import Post
 
@@ -20,3 +19,7 @@ class PostDetailView(DetailView):
     extra_context = {
         'comments_form': CommentForm(),
     }
+
+
+    class PostCreateView(CreateView):
+

@@ -1,10 +1,11 @@
 from django import forms
+from django.forms.models import inlineformset_factory
 
+from pets.models import Pet
 from posts.models import Comment, Post
 
 
 class PostForm(forms.ModelForm):
-    """ Форма для создания нового поста """
     class Meta:
         model = Post
         fields = ('group', 'text',)
@@ -13,6 +14,23 @@ class PostForm(forms.ModelForm):
             'text': 'Текст вашего поста',
             'image': 'Изображение для вашего поста',
         }
+
+
+class PetForm(forms.ModelForm):
+    class Meta:
+        model = Pet
+        fields = ('name', 'age', 'weight', 'species', 'breed', 'description',)
+        help_texts = {
+            'name': 'Имя питомца',
+            'age': 'Возраст питомца',
+            'weight': 'Вес питомца',
+            'species': 'Разновидность: собаки, кошки и т.д.',
+            'breed': 'Порода питомца',
+            'description': 'Описание питомца',
+        }
+
+
+PostFormset = inlineformset_factory(Pet, Post, PostForm)
 
 
 class CommentForm(forms.ModelForm):

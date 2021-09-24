@@ -1,6 +1,7 @@
 from django.db import models
-
-from pets.models import Pet, ImagePet
+from unidecode import unidecode
+from django.template.defaultfilters import slugify
+from pets.models import Pet
 from users.models import User
 
 
@@ -36,6 +37,13 @@ class Post(models.Model):
                               blank=True, null=True,
                               related_name="posts",
                               verbose_name='Группа')
+
+    def save(self):
+        if not self.id:  # if this is a new item
+            new_slug = '{0}-{1}-{2}'.format(self.pet, self.author,
+                                            self.pub_date)
+            self.slug = slugify(unidecode(new_slug))
+        super(Post, self).save()
 
     class Meta:
         verbose_name = 'Пост'
