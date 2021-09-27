@@ -1,6 +1,7 @@
 from django.db import models
-from unidecode import unidecode
 from django.template.defaultfilters import slugify
+from unidecode import unidecode
+
 from pets.models import Pet
 from users.models import User
 

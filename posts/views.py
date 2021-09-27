@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.views.generic import DetailView, ListView, CreateView
+from django.views.generic import CreateView, DetailView, ListView
 
 from posts.forms import CommentForm, PostForm, PostFormset
 from posts.models import Post
