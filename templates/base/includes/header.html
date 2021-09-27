@@ -20,7 +20,7 @@
       <ul class="navbar-nav pull-right">
         {% if user.is_authenticated %}
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'post_create' %}">Создать пост</a>
+            <a class="nav-link" href="{% url 'post_add' %}">Создать пост</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{% url 'password_change' %}">Изменить пароль</a>
