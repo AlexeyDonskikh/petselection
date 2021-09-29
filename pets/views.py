@@ -4,9 +4,8 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import CreateView
 
-from pets.forms import PetForm, ImagePetFormSet, ImagePetForm
+from pets.forms import ImagePetForm, ImagePetFormSet, PetForm
 from pets.models import Pet
-
 
 # class PetAddView(CreateView):
 #     model = Pet

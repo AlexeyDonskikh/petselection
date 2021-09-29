@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import inlineformset_factory
 
-from pets.models import Pet, ImagePet
+from pets.models import ImagePet, Pet
 
 
 class PetForm(forms.ModelForm):
