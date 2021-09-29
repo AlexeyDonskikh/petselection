@@ -6,10 +6,10 @@
 
 
 <div class="row justify-content-center">
-    <div class="col-md-8 p-5">
+    <div class="col-md-10 p-5">
         <div class="card">
             <div class="card-header">
-                Создать новый пост
+                Добавить нового питомца
             </div>
             <div class="card-body">
 
@@ -21,43 +21,30 @@
 
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
+                    <p>{{imagepet.ImagePetForm}}</p>
+                    {% for f in imagepet %}
+                    {% for field in f %}
+                        <div class="form-group row" aria-required= {% if field.field.required %} "true" {% else %}"false"{% endif %} >
+                            <label for="{{ field.id_for_label }}" class="col-md-4 col-form-label text-md-right">{{ field.label }}{% if field.field.required %}<span class="required">*</span>{% endif %}</label>
+                            <div class="col-md-6">
+                                {{ field|addclass:"form-control" }}
 
-                    {% for field in form %}
-                        <div class="form-group row" aria-required={% if field.field.required %}"true"{% else %}"false"{% endif %} >
-                                <label for="{{ field.id_for_label }}" class="col-md-4 col-form-label text-md-right">{{ field.label }}{% if field.field.required %}<span class="required">*</span>{% endif %}</label>
-                                <div class="col-md-6">
-
-                                    {{ field|addclass:"form-control" }}
-
-                                    {% if field.help_text %}
+                                {% if field.help_text %}
                                     <small id="{{ field.id_for_label }}-help" class="form-text text-muted">{{ field.help_text|safe }}</small>
-                                    {% endif %}
-                                </div>
+                                {% endif %}
+                            </div>
                         </div>
-                    {% endfor %}
+                    {% endfor %}{% endfor %}
 
-                    {% for field in imagepet %}
-                        <div class="form-group row" aria-required={% if field.field.required %}"true"{% else %}"false"{% endif %} >
-                                <label for="{{ field.id_for_label }}" class="col-md-4 col-form-label text-md-right">{{ field.label }}{% if field.field.required %}<span class="required">*</span>{% endif %}</label>
-                                <div class="col-md-6">
-
-                                    {{ field }}
-
-                                    {% if field.help_text %}
-                                    <small id="{{ field.id_for_label }}-help" class="form-text text-muted">{{ field.help_text|safe }}</small>
-                                    {% endif %}
-                                </div>
-                        </div>
-                    {% endfor %}
 
                     <div class="col-md-6 offset-md-4">
-                            <button type="submit" class="btn btn-primary">
-                                {% if edit == True %}
-                                    Сохранить
-                                {% else %}
-                                    Создать
-                                {% endif %}
-                            </button>
+                        <button type="submit" class="btn btn-primary">
+                            {% if edit == True %}
+                                Сохранить
+                            {% else %}
+                                Создать
+                            {% endif %}
+                        </button>
                     </div>
                 </form>
             </div> <!-- card body -->

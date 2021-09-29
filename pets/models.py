@@ -35,7 +35,8 @@ class Pet(models.Model):
     name = models.TextField(max_length=30, verbose_name='Кличка')
     age = models.PositiveSmallIntegerField(db_index=True,
                                            verbose_name='Возраст')
-    weight = models.DecimalField(blank=True, max_digits=5, decimal_places=2)
+    weight = models.DecimalField(blank=True, max_digits=5, decimal_places=2,
+                                 verbose_name='Вес')
     species = models.ForeignKey(Species, on_delete=models.SET_NULL,
                                 blank=True, null=True,
                                 verbose_name='Разновидность',

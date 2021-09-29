@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import inlineformset_factory, BaseInlineFormSet
+from django.forms import inlineformset_factory
 
 from pets.models import Pet, ImagePet
 
@@ -21,13 +21,12 @@ class PetForm(forms.ModelForm):
 class ImagePetForm(forms.ModelForm):
     class Meta:
         model = ImagePet
-        fields = ('image_name', 'pet', 'image',)
+        fields = ('image_name', 'image',)
         help_texts = {
-            'image_name': 'Название фотогафии',
-            'pet': 'Питомец',
+            'image_name': 'Название фотографии',
             'image': 'Фото',
         }
 
 
 ImagePetFormSet = inlineformset_factory(Pet, ImagePet,
-                                        form=ImagePetForm, extra=2)
+                                        form=ImagePetForm, extra=1)
