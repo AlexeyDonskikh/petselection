@@ -13,40 +13,70 @@
             </div>
             <div class="card-body">
 
-              {% for error in form.errors %}
+                {% for error in form.errors %}
                   <div class="alert alert-danger" role="alert">
                       {{ error|escape }}
                   </div>
                 {% endfor %}
 
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <p>{{imagepet.ImagePetForm}}</p>
-                    {% for f in imagepet %}
-                    {% for field in f %}
-                        <div class="form-group row" aria-required= {% if field.field.required %} "true" {% else %}"false"{% endif %} >
-                            <label for="{{ field.id_for_label }}" class="col-md-4 col-form-label text-md-right">{{ field.label }}{% if field.field.required %}<span class="required">*</span>{% endif %}</label>
-                            <div class="col-md-6">
-                                {{ field|addclass:"form-control" }}
+                <form method="post" enctype="multipart/form-data" action="">
+                  {% csrf_token %}
 
-                                {% if field.help_text %}
-                                    <small id="{{ field.id_for_label }}-help" class="form-text text-muted">{{ field.help_text|safe }}</small>
-                                {% endif %}
-                            </div>
-                        </div>
-                    {% endfor %}{% endfor %}
+                  <div class="mb-3">
 
-
-                    <div class="col-md-6 offset-md-4">
-                        <button type="submit" class="btn btn-primary">
-                            {% if edit == True %}
-                                Сохранить
-                            {% else %}
-                                Создать
-                            {% endif %}
-                        </button>
+                    <div class="mb-3">
+                      <label for="{{ form.name.id_for_label }}" class="form-label">{{ form.name.label }}</label>
+                      <input type="{{ form.name.widget_type }}" id="{{ form.name.id_for_label }}" name="{{ form.name.html_name }}" class="form-control" placeholder="{{ form.name.label }}">
                     </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.species.id_for_label }}" class="form-label">{{ form.species.label }}</label>
+                        <select id="form-select" class="form-select">
+                          <option selected></option>
+                          {% for species in form.species %}
+                            <option value="{{ species }}"></option>
+                          {% endfor %}
+                        </select>
+                        <small id="{{ form.species.id_for_label }}-help" class="form-text text-muted">{{ form.species.help_text|safe }}</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.breed.id_for_label }}" class="form-label">{{ form.breed.label }}</label>
+                        <select id="inputState" class="form-select">
+                          <option selected></option>
+                          {% for breed in form.breed %}
+                          <option value="{{ breed }}"></option>
+                          {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="{{ form.age.id_for_label }}" class="form-label">{{ form.age.label }}</label>
+                      <input type="{{ form.age.widget_type }}" id="{{ form.age.id_for_label }}" name="{{ form.age.html_name }}" class="form-control" placeholder="{{ form.age.label }}">
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="{{ form.weight.id_for_label }}" class="form-label">{{ form.weight.label }}</label>
+                      <input type="{{ form.weight.widget_type }}" step=".01" id="{{ form.weight.id_for_label }}" name="{{ form.weight.html_name }}" class="form-control" placeholder="{{ form.weight.label }}">
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="{{ form.description.id_for_label }}" class="form-label">{{ form.description.label }}</label>
+                      <textarea type="{{ form.description.widget_type }}" id="{{ form.description.id_for_label }}" name="{{ form.description.html_name }}" class="form-control" rows="3" placeholder="{{ form.description.label }}"></textarea>
+                    </div>
+
+                    {% for form in imagepet %}
+                    <div class="mb-3">
+                      <label for="{{ form.image.id_for_label }}" class="form-label">{{ form.image.label }}</label>
+                      <input class="form-control" type="file" id="formFile">
+                    </div>
+                    {% endfor %}
+
+                  </div>
+
+                  <button type="submit" class="btn btn-success" >Добавить питомца</button>
                 </form>
+
             </div> <!-- card body -->
         </div> <!-- card -->
     </div> <!-- col -->

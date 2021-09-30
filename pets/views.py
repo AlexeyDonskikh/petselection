@@ -1,11 +1,7 @@
-from django.conf import settings
-from django.db import transaction
-from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import CreateView
 
-from pets.forms import ImagePetForm, ImagePetFormSet, PetForm
-from pets.models import Pet
+from pets.forms import ImagePetFormSet, PetForm
 
 # class PetAddView(CreateView):
 #     model = Pet
@@ -44,15 +40,24 @@ class PetAddView(CreateView):
     def form_valid(self, form):
         context = self.get_context_data()
         imagepet = context['imagepet']
-        with transaction.commit_on_success():
-            form.instance.created_by = self.request.user
-            form.instance.updated_by = self.request.user
-            self.object = form.save()
-        if imagepet.is_valid():
-            imagepet.instance = self.object
-            imagepet.save()
 
-        return super(PetAddView, self).form_valid(form)
+        pet = form.save(commit=False)
+        pet.master = self.request.user
+        pet.save()
+        imagepet.save()
+        return super().form_valid(form)
+        # with transaction.commit_on_success():
+        #     form.instance.created_by = self.request.user
+        #     form.instance.updated_by = self.request.user
+        #     pet = form.save(commit=False)
+        #     pet.author = self.request.user
+        #     pet.save()
+            # self.object = form.save()
+        # if imagepet.is_valid():
+        #     # imagepet.instance = self.object
+        #     imagepet.save()
+
+        # return super(PetAddView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse('sponsors')
+        return reverse('index')
