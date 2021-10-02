@@ -1,6 +1,5 @@
 from django import forms
 from django.forms import inlineformset_factory
-from extra_views import InlineFormSetFactory
 
 from pets.models import ImagePet, Pet
 

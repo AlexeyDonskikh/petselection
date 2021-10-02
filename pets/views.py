@@ -1,10 +1,9 @@
-from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import CreateView
 
 from pets.forms import ImagePetFormSet, PetForm
-from pets.models import Pet, ImagePet
+from pets.models import ImagePet, Pet
 
 
 class PetAddView(CreateView):
