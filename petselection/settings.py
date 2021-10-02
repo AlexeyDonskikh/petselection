@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'sorl.thumbnail',
     'bootstrap_pagination',
+    'extra_views',
     'users',
     'pets',
     'posts',

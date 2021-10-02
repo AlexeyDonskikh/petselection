@@ -31,23 +31,13 @@
 
                     <div class="mb-3">
                         <label for="{{ form.species.id_for_label }}" class="form-label">{{ form.species.label }}</label>
-                        <select id="form-select" class="form-select">
-                          <option selected></option>
-                          {% for species in form.species %}
-                            <option value="{{ species }}"></option>
-                          {% endfor %}
-                        </select>
+                        {{ form.species|addclass:"form-control" }}
                         <small id="{{ form.species.id_for_label }}-help" class="form-text text-muted">{{ form.species.help_text|safe }}</small>
                     </div>
 
                     <div class="mb-3">
                         <label for="{{ form.breed.id_for_label }}" class="form-label">{{ form.breed.label }}</label>
-                        <select id="inputState" class="form-select">
-                          <option selected></option>
-                          {% for breed in form.breed %}
-                          <option value="{{ breed }}"></option>
-                          {% endfor %}
-                        </select>
+                        {{ form.breed|addclass:"form-control" }}
                     </div>
 
                     <div class="mb-3">
@@ -65,12 +55,12 @@
                       <textarea type="{{ form.description.widget_type }}" id="{{ form.description.id_for_label }}" name="{{ form.description.html_name }}" class="form-control" rows="3" placeholder="{{ form.description.label }}"></textarea>
                     </div>
 
-                    {% for form in imagepet %}
-                    <div class="mb-3">
-                      <label for="{{ form.image.id_for_label }}" class="form-label">{{ form.image.label }}</label>
-                      <input class="form-control" type="file" id="formFile">
-                    </div>
-                    {% endfor %}
+                    {{ imagepet.management_form }}
+                        {% for form in imagepet %}
+                        {{ form.image }}
+                        {% endfor %}
+
+
 
                   </div>
 
@@ -81,6 +71,7 @@
         </div> <!-- card -->
     </div> <!-- col -->
 </div> <!-- row -->
+
 
 
 {% endblock %}
