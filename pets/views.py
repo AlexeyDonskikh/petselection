@@ -1,9 +1,26 @@
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView, ListView, DetailView
 
 from pets.forms import ImagePetFormSet, PetForm
 from pets.models import ImagePet, Pet
+from petselection import settings
+
+
+class MyPetListView(ListView):
+    model = Pet
+    template_name = 'pets/my_pets.html'
+    paginate_by = settings.PAGINATION_PAGE_SIZE
+    context_object_name = 'my_pets'
+
+    def get_queryset(self):
+        return Pet.objects.filter(master=self.request.user)
+
+
+class PetDetailView(DetailView):
+    model = Pet
+    template_name = 'pets/pet_detail.html'
+    context_object_name = 'pet'
 
 
 class PetAddView(CreateView):
@@ -47,3 +64,9 @@ class PetAddView(CreateView):
 
     def get_success_url(self):
         return reverse('index')
+
+
+class PetUpdateView(UpdateView):
+    model = Pet
+    form_class = PetForm
+    template_name = 'pets/pet_update.html'

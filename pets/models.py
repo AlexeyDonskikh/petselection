@@ -1,6 +1,8 @@
 from django.db import models
 
 from users.models import User
+from django.template.defaultfilters import slugify
+from unidecode import unidecode
 
 
 class Species(models.Model):
@@ -33,6 +35,7 @@ class Breed(models.Model):
 
 class Pet(models.Model):
     name = models.TextField(max_length=30, verbose_name='Кличка')
+    slug = models.SlugField(unique=True)
     age = models.PositiveSmallIntegerField(db_index=True,
                                            verbose_name='Возраст')
     weight = models.DecimalField(blank=True, max_digits=5, decimal_places=2,
@@ -52,9 +55,17 @@ class Pet(models.Model):
                                related_name='pets')
     date_adding = models.DateTimeField(auto_now=True)
 
+    def save(self):
+        if not self.id:  # if this is a new item
+            new_slug = '{0}-{1}-{2}'.format(self.name, self.master,
+                                            self.date_adding)
+            self.slug = slugify(unidecode(new_slug))
+        super(Pet, self).save()
+
     class Meta:
         verbose_name = 'Питомец'
         verbose_name_plural = 'Питомцы'
+        ordering = ["-date_adding"]
 
     def __str__(self):
         return self.name

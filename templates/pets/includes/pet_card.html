@@ -1,0 +1,16 @@
+{% load user_filters %}
+{% load thumbnail %}
+
+<div class="card">
+
+    {% thumbnail pet.images.last.image '960x500' crop='center' as im %}
+        <a href="{% url 'pet_detail' pet.slug %}"><img class="card-img-top" src="{{ im.url }}" alt="Card image cap"/></a>
+    {% endthumbnail %}
+
+    <div class="card-body">
+        <h5 class="card-title" ><a href="{% url 'pet_detail' pet.slug %}">{{ pet.name }}</a></h5>
+        <p class="card-text">Порода: {{ pet.breed }}</p>
+        <p class="card-text">Возраст: {{ pet.age }}</p>
+        <p class="card-text"><small class="text-muted"> Добавлено: {{ pet.date_adding }}</small></p>
+    </div>
+</div>

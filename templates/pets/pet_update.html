@@ -1,0 +1,78 @@
+{% extends "../base/base.html" %}
+
+{% block content %}
+
+{% load user_filters %}
+
+
+<div class="row justify-content-center">
+    <div class="col-md-10 p-5">
+        <div class="card">
+            <div class="card-header">
+                Изменить данные питомца
+            </div>
+            <div class="card-body">
+
+                {% for error in form.errors %}
+                  <div class="alert alert-danger" role="alert">
+                      {{ error|escape }}
+                  </div>
+                {% endfor %}
+
+                <form method="post" enctype="multipart/form-data" action="">
+                  {% csrf_token %}
+
+                  <div class="mb-3">
+
+                    <div class="mb-3">
+                      <label for="{{ form.name.id_for_label }}" class="form-label">{{ form.name.label }}</label>
+                      <input type="{{ form.name.widget_type }}" id="{{ form.name.id_for_label }}" name="{{ form.name.html_name }}" class="form-control" placeholder="{{ form.name.label }}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.species.id_for_label }}" class="form-label">{{ form.species.label }}</label>
+                        {{ form.species|addclass:"form-control" }}
+                        <small id="{{ form.species.id_for_label }}-help" class="form-text text-muted">{{ form.species.help_text|safe }}</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.breed.id_for_label }}" class="form-label">{{ form.breed.label }}</label>
+                        {{ form.breed|addclass:"form-control" }}
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="{{ form.age.id_for_label }}" class="form-label">{{ form.age.label }}</label>
+                      <input type="{{ form.age.widget_type }}" id="{{ form.age.id_for_label }}" name="{{ form.age.html_name }}" class="form-control" placeholder="{{ form.age.label }}">
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="{{ form.weight.id_for_label }}" class="form-label">{{ form.weight.label }}</label>
+                      <input type="{{ form.weight.widget_type }}" step=".01" id="{{ form.weight.id_for_label }}" name="{{ form.weight.html_name }}" class="form-control" placeholder="{{ form.weight.label }}">
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="{{ form.description.id_for_label }}" class="form-label">{{ form.description.label }}</label>
+                      <textarea type="{{ form.description.widget_type }}" id="{{ form.description.id_for_label }}" name="{{ form.description.html_name }}" class="form-control" rows="3" placeholder="{{ form.description.label }}"></textarea>
+                    </div>
+
+                    {{ image_pet.management_form }}
+                    <div class="mb-3">
+                        {% for form in image_pet %}
+                            <label for="{{ form.image.id_for_label }}" class="form-label">{{ form.image.label }}</label>
+                            {{ form.image|addclass:"form-control" }}
+                        {% endfor %}
+                    </div>
+
+
+
+                  </div>
+
+                  <button type="submit" class="btn btn-success" >Добавить питомца</button>
+                </form>
+
+            </div> <!-- card body -->
+        </div> <!-- card -->
+    </div> <!-- col -->
+</div> <!-- row -->
+
+{% endblock %}

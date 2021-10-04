@@ -7,12 +7,12 @@
     <div class="container">
 
 
-        <h1> Последние обновления на сайте</h1>
+        <h1> Мои питомцы </h1>
         <!-- Вывод ленты записей -->
 
         <div class="card-group">
-            {% for post in posts %}
-                {% include './includes/post_сard.html' with post=post%}
+            {% for pet in my_pets %}
+                {% include './includes/pet_card.html' with pet=pet%}
             {% endfor %}
         </div>
 

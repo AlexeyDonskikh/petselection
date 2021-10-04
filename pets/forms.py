@@ -29,5 +29,5 @@ class ImagePetForm(forms.ModelForm):
 
 
 ImagePetFormSet = inlineformset_factory(Pet, ImagePet,
-                                        form=ImagePetForm, extra=1)
+                                        form=ImagePetForm, extra=2)
 
