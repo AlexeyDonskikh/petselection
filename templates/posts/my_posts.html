@@ -1,0 +1,27 @@
+{% extends "../base/base.html" %}
+{% load bootstrap_pagination %}
+
+{% block title %} Мои посты {% endblock %}
+
+{% block content %}
+    <div class="container">
+
+
+        <h1> Мои посты </h1>
+        <!-- Вывод ленты записей -->
+
+        <div class="card-group">
+            {% for post in my_posts %}
+                {% include './includes/post_сard.html' with post=post%}
+            {% endfor %}
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12" >
+            {% bootstrap_paginate page_obj range=7 show_prev_next="false" show_first_last="true" %}
+        </div>
+    </div>
+
+{% endblock %}

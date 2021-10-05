@@ -27,8 +27,8 @@
             <li><a class="dropdown-item" href="{% url 'profile_view' user.slug %}">Мои данные</a></li>
             <li><a class="dropdown-item" href="{% url 'my_pets' %}">Мои питомцы</a></li>
             <li><a class="dropdown-item" href="{% url 'pet_add' %}">Добавить питомца</a></li>
-            <li><a class="dropdown-item" href="#">Мои посты</a></li>
-            <li><a class="dropdown-item" href="#">Добавить пост</a></li>
+            <li><a class="dropdown-item" href="{% url 'my_posts' %}">Мои посты</a></li>
+            <li><a class="dropdown-item" href="{% url 'post_add' %}">Добавить пост</a></li>
             <li><a class="dropdown-item" href="#">Выход</a></li>
           </ul>
         </li>

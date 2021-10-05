@@ -63,7 +63,7 @@ class PetAddView(CreateView):
         return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
-        return reverse('index')
+        return reverse('my_pets')
 
 
 class PetUpdateView(UpdateView):

@@ -8,9 +8,11 @@
     {% endthumbnail %}
 
     <div class="card-body">
-        <h5 class="card-title">{{ post.pet.name }}</h5>
+        <h5 class="card-title">{{ post.title }}</h5>
+        <p class="card-text">{{ post.pet.name }}</p>
         <p class="card-text">{{ post.pet.breed }}</p>
         <p class="card-text">{{ post.text }}</p>
+        {% if post.group %}<p class="card-text">{{ post.group }}</p>{% endif %}
         <p class="card-text"><small class="text-muted"> Добавлено: {{ post.pub_date }}</small></p>
     </div>
 </div>

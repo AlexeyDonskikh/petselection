@@ -22,6 +22,8 @@ class Group(models.Model):
 
 
 class Post(models.Model):
+    title = models.CharField(max_length=200, db_index=True,
+                             verbose_name='Заголовок поста')
     pet = models.ForeignKey(Pet, blank=False, on_delete=models.CASCADE,
                             verbose_name='Питомец', related_name='pet')
     slug = models.SlugField(unique=True)
@@ -40,10 +42,12 @@ class Post(models.Model):
                               verbose_name='Группа')
 
     def save(self):
-        if not self.id:  # if this is a new item
-            new_slug = '{0}-{1}-{2}'.format(self.pet, self.author,
+        if not self.id:
+            new_slug = '{0}-{1}-{2}'.format(self.title, self.author,
                                             self.pub_date)
             self.slug = slugify(unidecode(new_slug))
+        if not self.title:
+            self.title = self.pet.name
         super(Post, self).save()
 
     class Meta:
