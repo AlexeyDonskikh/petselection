@@ -1,8 +1,8 @@
 from django.db import models
-
-from users.models import User
 from django.template.defaultfilters import slugify
 from unidecode import unidecode
+
+from users.models import User
 
 
 class Species(models.Model):

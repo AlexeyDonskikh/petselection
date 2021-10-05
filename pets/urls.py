@@ -1,6 +1,6 @@
 from django.urls import path
 
-from pets.views import PetAddView, PetUpdateView, MyPetListView, PetDetailView
+from pets.views import MyPetListView, PetAddView, PetDetailView, PetUpdateView
 
 urlpatterns = [
     path('my_pets/', MyPetListView.as_view(), name='my_pets'),

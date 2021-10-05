@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.views.generic import CreateView, UpdateView, ListView, DetailView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
 from pets.forms import ImagePetFormSet, PetForm
 from pets.models import ImagePet, Pet
