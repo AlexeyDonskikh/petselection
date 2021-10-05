@@ -3,7 +3,7 @@
 
 <div class="card">
 
-    {% thumbnail pet.images.last.image '960x500' crop='center' as im %}
+    {% thumbnail pet.images.first.image '960x500' crop='center' as im %}
         <a href="{% url 'pet_detail' pet.slug %}"><img class="card-img-top" src="{{ im.url }}" alt="Card image cap"/></a>
     {% endthumbnail %}
 

@@ -13,6 +13,7 @@ class UserRole(models.TextChoices):
 
 class User(AbstractUser):
     username_validator = UnicodeUsernameValidator()
+    slug = models.SlugField(unique=True)
     email = models.EmailField(help_text='email address', unique=True)
 
     role = models.CharField(
@@ -21,11 +22,18 @@ class User(AbstractUser):
     bio = models.TextField(max_length=500, blank=True)
     first_name = models.CharField(max_length=50, blank=True)
     last_name = models.CharField(max_length=50, blank=True)
+    created = models.DateTimeField("Дата создания аккаунта",
+                                   auto_now_add=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
     objects = UserManager()
+
+    def save(self):
+        if not self.id:
+            self.slug = self.username
+        super(User, self).save()
 
     @property
     def is_admin(self):

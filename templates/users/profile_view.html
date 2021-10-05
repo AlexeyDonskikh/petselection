@@ -1,0 +1,20 @@
+{% extends "../base/base.html" %}
+{% load thumbnail %}
+
+{% block content %}
+
+<div class="card">
+    <h5 class="card-title"><a href="/">@{{ user.username }}</a></h5>
+    <div class="card-body">
+        <p class="card-text">{{ user.first_name }} {{ user.last_name }}</p>
+        {% if user.is_admin %}
+            <p class="card-text">Админ</p>
+        {% endif %}
+        {% if user.is_moderator %}
+            <p class="card-text">Модератор</p>
+        {% endif %}
+        <p class="card-text">{{ user.bio }}</p>
+    </div>
+</div>
+
+{% endblock %}
