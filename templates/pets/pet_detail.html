@@ -11,10 +11,11 @@
         <p class="card-text">Порода: {{ pet.breed }}</p>
         <p class="card-text">Возраст: {{ pet.age }}</p>
         <p class="card-text">Вес: {{ pet.weight }}</p>
-        <p class="card-text">Описание</p>
+        {% if pet.description %}<p class="card-text">Описание</p> {% endif %}
         <p class="card-text">{{ pet.description }}</p>
         <p class="card-text"><small class="text-muted"> Добавлено: {{ pet.date_adding }}</small></p>
     </div>
+    <button type="submit" class="btn btn-success" >Добавить питомца</button>
 </div>
 
 {% endblock %}
