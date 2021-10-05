@@ -24,7 +24,7 @@
             {{ user.username }}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="{% url 'profile_view' user.pk %}">Мои данные</a></li>
+            <li><a class="dropdown-item" href="{% url 'profile_view' user.slug %}">Мои данные</a></li>
             <li><a class="dropdown-item" href="{% url 'my_pets' %}">Мои питомцы</a></li>
             <li><a class="dropdown-item" href="{% url 'pet_add' %}">Добавить питомца</a></li>
             <li><a class="dropdown-item" href="#">Мои посты</a></li>
