@@ -56,10 +56,9 @@ class Pet(models.Model):
     date_adding = models.DateTimeField(auto_now=True)
 
     def save(self):
-        if not self.id:  # if this is a new item
-            new_slug = '{0}-{1}-{2}'.format(self.name, self.master,
-                                            self.date_adding)
-            self.slug = slugify(unidecode(new_slug))
+        new_slug = '{0}-{1}-{2}'.format(self.name, self.master,
+                                        self.date_adding)
+        self.slug = slugify(unidecode(new_slug))
         super(Pet, self).save()
 
     class Meta:
@@ -78,7 +77,7 @@ class ImagePet(models.Model):
                             verbose_name='Фото питомца',
                             related_name='images')
     image = models.ImageField('Изображение', upload_to='pet_images/',
-                              blank=True, null=True)
+                              blank=True)
 
     class Meta:
         verbose_name = 'Фотография питомца'

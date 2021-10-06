@@ -26,7 +26,7 @@
 
                     <div class="mb-3">
                       <label for="{{ form.name.id_for_label }}" class="form-label">{{ form.name.label }}</label>
-                      <input type="{{ form.name.widget_type }}" id="{{ form.name.id_for_label }}" name="{{ form.name.html_name }}" class="form-control" placeholder="{{ form.name.label }}">
+                      {{ form.name|addclass:"form-control" }}
                     </div>
 
                     <div class="mb-3">
@@ -42,17 +42,17 @@
 
                     <div class="mb-3">
                       <label for="{{ form.age.id_for_label }}" class="form-label">{{ form.age.label }}</label>
-                      <input type="{{ form.age.widget_type }}" id="{{ form.age.id_for_label }}" name="{{ form.age.html_name }}" class="form-control" placeholder="{{ form.age.label }}">
+                      {{ form.age|addclass:"form-control" }}
                     </div>
 
                     <div class="mb-3">
                       <label for="{{ form.weight.id_for_label }}" class="form-label">{{ form.weight.label }}</label>
-                      <input type="{{ form.weight.widget_type }}" step=".01" id="{{ form.weight.id_for_label }}" name="{{ form.weight.html_name }}" class="form-control" placeholder="{{ form.weight.label }}">
+                      {{ form.weight|addclass:"form-control" }}
                     </div>
 
                     <div class="mb-3">
                       <label for="{{ form.description.id_for_label }}" class="form-label">{{ form.description.label }}</label>
-                      <textarea type="{{ form.description.widget_type }}" id="{{ form.description.id_for_label }}" name="{{ form.description.html_name }}" class="form-control" rows="3" placeholder="{{ form.description.label }}"></textarea>
+                      {{ form.description|addclass:"form-control" }}
                     </div>
 
                     {{ image_pet.management_form }}
