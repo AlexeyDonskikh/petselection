@@ -15,7 +15,9 @@
         <p class="card-text">{{ pet.description }}</p>
         <p class="card-text"><small class="text-muted"> Добавлено: {{ pet.date_adding }}</small></p>
     </div>
-    <button type="submit" class="btn btn-success" >Добавить питомца</button>
+    {% if pet.master == user %}
+        <a href="{% url 'pet_update' pet.slug %}"><button type="button" class="btn btn-success" >Редактировать</button></a>
+    {% endif %}
 </div>
 
 {% endblock %}

@@ -12,6 +12,9 @@
         <p class="card-text"><small class="text-muted"> Пост сообщества: </small><small><a href="#">{{ post.group }}</a></small></p>
         <p class="card-text"><small class="text-muted"> Добавлено: {{ post.pub_date }}</small></p>
     </div>
+    {% if post.author == user %}
+        <a href="{% url 'post_update' post.slug %}"><button type="button" class="btn btn-success" >Редактировать</button></a>
+    {% endif %}
 </div>
 
 {% include './includes/comments.html' with comment=comments_form%}

@@ -4,11 +4,11 @@
 <div class="card">
 
     {% thumbnail post.pet.images.last.image '960x500' crop='center' as im %}
-        <img class="card-img-top" src="{{ im.url }}" alt="Card image cap"/>
+        <a href="{% url 'post_detail' post.slug %}"><img class="card-img-top" src="{{ im.url }}" alt="Card image cap"/></a>
     {% endthumbnail %}
 
     <div class="card-body">
-        <h5 class="card-title">{{ post.title }}</h5>
+        <a href="{% url 'post_detail' post.slug %}"><h5 class="card-title">{{ post.title }}</h5></a>
         <p class="card-text">{{ post.pet.name }}</p>
         <p class="card-text">{{ post.pet.breed }}</p>
         <p class="card-text">{{ post.text }}</p>
