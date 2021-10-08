@@ -1,3 +1,4 @@
+from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
@@ -87,22 +88,30 @@ class PetUpdateView(UpdateView):
         context = super(PetUpdateView, self).get_context_data(**kwargs)
         if self.request.POST:
             context['image_pet'] = ImagePetFormSet(self.request.POST, self.request.FILES, instance=self.object)
-            context['image_pet'].full_clean()
         else:
-            context['image_pet'] = ImagePetFormSet(instance=self.get_object())
+            context['image_pet'] = ImagePetFormSet(instance=self.object)
         return context
 
-    def form_valid(self, form):
-        context = self.get_context_data(form=form)
-        formset = context['image_pet']
-        if formset.is_valid():
-            response = super().form_valid(form)
-            formset.instance = self.object
-            formset.save()
-            return response
-        else:
-            return super().form_invalid(form)
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        image_formset = ImagePetFormSet(self.request.POST, self.request.FILES,
+                                        queryset=ImagePet.objects.none())
 
+        if form.is_valid() and image_formset.is_valid():
+            return self.form_valid(form, image_formset)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form, image_formset):
+
+        with transaction.atomic():
+            self.object = form.save()
+            if image_formset.is_valid():
+                image_formset.instance = self.object
+                image_formset.save()
+
+        return super(PetUpdateView, self).form_valid(form)
     # def post(self, request, *args, **kwargs):
     #     form = self.get_form()
     #     image_formset = ImagePetFormSet(self.request.POST, self.request.FILES,

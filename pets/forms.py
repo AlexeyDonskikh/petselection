@@ -21,7 +21,7 @@ class PetForm(forms.ModelForm):
 class ImagePetForm(forms.ModelForm):
     class Meta:
         model = ImagePet
-        fields = ('image_name', 'image',)
+        fields = ('image',)
         help_texts = {
             'image_name': 'Название фотографии',
             'image': 'Фото',
