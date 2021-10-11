@@ -72,66 +72,29 @@ class PetUpdateView(UpdateView):
     form_class = PetForm
     template_name = 'pets/pet_update.html'
 
-    # def get_context_data(self, **kwargs):
-    #     data = super(PetUpdateView, self).get_context_data(**kwargs)
-    #     if self.request.POST:
-    #         data['image_pet'] = ImagePetFormSet(
-    #             self.request.POST,
-    #             self.request.FILES,
-    #             queryset=ImagePet.objects.none()
-    #         )
-    #     else:
-    #         data['image_pet'] = ImagePetFormSet()
-    #     return data
-
     def get_context_data(self, **kwargs):
         context = super(PetUpdateView, self).get_context_data(**kwargs)
         if self.request.POST:
-            context['image_pet'] = ImagePetFormSet(self.request.POST, self.request.FILES, instance=self.object)
+            context['image_formset'] = ImagePetFormSet(
+                self.request.POST,
+                self.request.FILES,
+                instance=self.object)
         else:
-            context['image_pet'] = ImagePetFormSet(instance=self.object)
+            context['image_formset'] = ImagePetFormSet(instance=self.object)
         return context
 
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        form = self.get_form()
-        image_formset = ImagePetFormSet(self.request.POST, self.request.FILES,
-                                        queryset=ImagePet.objects.none())
-
-        if form.is_valid() and image_formset.is_valid():
-            return self.form_valid(form, image_formset)
-        else:
-            return self.form_invalid(form)
-
-    def form_valid(self, form, image_formset):
-
-        with transaction.atomic():
-            self.object = form.save()
-            if image_formset.is_valid():
-                image_formset.instance = self.object
-                image_formset.save()
-
-        return super(PetUpdateView, self).form_valid(form)
-    # def post(self, request, *args, **kwargs):
-    #     form = self.get_form()
-    #     image_formset = ImagePetFormSet(self.request.POST, self.request.FILES,
-    #                                     queryset=ImagePet.objects.none())
-    #
-    #     if form.is_valid() and image_formset.is_valid():
-    #         return self.form_valid(form, image_formset)
-    #     else:
-    #         return self.form_invalid(form)
-    #
-    # def form_valid(self, form, image_formset):
-    #     self.object = form.save(commit=False)
-    #     self.object.master = self.request.user
-    #     self.object.save()
-    #     for image_form in image_formset.cleaned_data:
-    #         if image_form:
-    #             image = image_form['image']
-    #             photo = ImagePet(pet=self.object, image=image)
-    #             photo.save()
-    #     return HttpResponseRedirect(self.get_success_url())
+    def form_valid(self, form):
+        context = self.get_context_data()
+        children = context['image_formset'] = ImagePetFormSet(
+            self.request.POST,
+            self.request.FILES,
+            instance=self.object
+        )
+        self.object = form.save()
+        if children.is_valid():
+            children.instance = self.object
+            children.save()
+        return super().form_valid(form)
 
     def get_success_url(self):
         return reverse('pet_detail', kwargs={'slug': self.object.slug})

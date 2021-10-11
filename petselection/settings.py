@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'sorl.thumbnail',
     'bootstrap_pagination',
+    'crispy_forms',
     'users',
     'pets',
     'posts',
