@@ -55,6 +55,9 @@ class Post(models.Model):
         verbose_name_plural = 'Посты'
         ordering = ["-pub_date"]
 
+    def __str__(self):
+        return self.title
+
 
 class Comment(models.Model):
     post = models.ForeignKey(Post,
@@ -74,6 +77,7 @@ class Comment(models.Model):
     class Meta:
         verbose_name = 'Комментарий'
         verbose_name_plural = 'Коментарии'
+        ordering = ["-created"]
 
 
 class Follow(models.Model):

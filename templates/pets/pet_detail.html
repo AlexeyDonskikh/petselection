@@ -7,7 +7,7 @@
     {% include './includes/carousel.html' with pet=pet%}
     <div class="card-body">
         <h5 class="card-title">{{ pet.name }}</h5>
-        <p class="card-text"><a href="#">@{{ pet.master.username }}</a></p>
+        <p class="card-text"><a href="{% url 'profile_view' pet.master.username %}">@{{ pet.master.username }}</a></p>
         <p class="card-text">Порода: {{ pet.breed }}</p>
         <p class="card-text">Возраст: {{ pet.age }}</p>
         <p class="card-text">Вес: {{ pet.weight }}</p>

@@ -1,10 +1,12 @@
 {% load user_filters %}
 
-{% for comment in comments %}
+
+{% for comment in post.comments.all %}
+<div class="card my-4">
     <div class="media mb-4">
         <div class="media-body">
             <h5 class="mt-0">
-                <a href="#" name="comment_{{ item.id }}">
+                <a href="{% url 'profile_view' comment.author.username %}" name="comment_{{ item.id }}">
                     {{ comment.author.username }}
                 </a>
                 <small class="text-muted">{{ comment.created }}</small>
@@ -12,20 +14,21 @@
             {{ comment.text }}
         </div>
     </div>
+</div>
 
 {% endfor %}
 
 {% if user.is_authenticated %}
     <div class="card my-4">
         <form
-            action="#"
+            action="{% url 'comment_add' post.slug %}"
             method="post">
             {% csrf_token %}
             <h5 class="card-header">Добавить комментарий:</h5>
             <div class="card-body">
                 <form>
                     <p><textarea rows="10" cols="60" name="text"></textarea></p>
-                    <button type="submit" class="btn btn-primary">Отправить</button>
+                    <button type="submit" class="btn btn-success">Отправить</button>
                 </form>
             </div>
         </form>

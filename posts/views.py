@@ -1,9 +1,10 @@
 from django.conf import settings
+from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
 from posts.forms import CommentForm, PostForm
-from posts.models import Post
+from posts.models import Comment, Post
 
 
 class PostListView(ListView):
@@ -56,3 +57,19 @@ class PostUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse('my_posts')
+
+
+class CommentCreateView(CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'posts/post_detail.html'
+    context_object_name = 'comment'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.post=get_object_or_404(Post, slug=self.kwargs['slug'])
+        return super(CommentCreateView, self).form_valid(form)
+
+    def get_success_url(self):
+        print(self.object.post)
+        return reverse('index')
