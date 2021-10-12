@@ -24,8 +24,8 @@ handler500 = 'petselection.views.server_error'
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
+    path('admin/', admin.site.urls),
     path('pets/', include('pets.urls')),
     path('', include('posts.urls')),
 ]

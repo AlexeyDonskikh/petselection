@@ -20,8 +20,10 @@ class User(AbstractUser):
         max_length=10, choices=UserRole.choices, default=UserRole.USER)
 
     bio = models.TextField(max_length=500, blank=True)
-    first_name = models.CharField(max_length=50, blank=True)
-    last_name = models.CharField(max_length=50, blank=True)
+    first_name = models.CharField(max_length=50, blank=True,
+                                  verbose_name='Имя')
+    last_name = models.CharField(max_length=50, blank=True,
+                                 verbose_name='Фамилия')
     created = models.DateTimeField("Дата создания аккаунта",
                                    auto_now_add=True)
 
