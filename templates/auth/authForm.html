@@ -21,26 +21,30 @@
           Пожалуйста, авторизуйтесь.</span>
         </div>
       {% endif %}
-      <div class="form__group">
-        <label for="{{ form.username.id_for_label }}" class="form__label">Имя</label>
+
+      <div class="mb-3">
+        <label for="{{ form.username.id_for_label }}" class="form__label">Email</label>
         <div class="form__field-group">
           {{ form.username|addclass:"form__input" }}
           <span class="form__error"></span>
         </div>
       </div>
-      <div class="form__group">
+
+      <div class="mb-3">
         <label for="{{ form.password.id_for_label }}" class="form__label">Пароль</label>
         <div class="form__field-group">
           {{ form.password|addclass:"form__input" }}
           {% if form.errors %}
-            <span class="form__error">Имя пользователя и пароль не совпадают. Введите правильные данные.</span>
+            <span class="form__error">Email и пароль не совпадают. Введите правильные данные.</span>
           {% endif %}
         </div>
       </div>
-      <div class="form__footer">
-        <button class="button button_style_blue">Войти</button>
-        <a class="form__forgot-link" href="{% url 'password_reset' %}">Забыли пароль?</a>
+
+      <div class="mb-3">
+        <button class="btn btn-success">Войти</button>
+        <a class="form-row" href="{% url 'password_reset' %}">Забыли пароль?</a>
       </div>
+
     </form>
   </div>
 {% endblock %}
