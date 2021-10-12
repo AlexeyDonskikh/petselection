@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.urls import reverse
-from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
 from posts.forms import CommentForm, PostForm
 from posts.models import Post
@@ -43,6 +43,16 @@ class PostCreateView(CreateView):
         post.author = self.request.user
         post.save()
         return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('my_posts')
+
+
+class PostUpdateView(UpdateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'posts/post_update.html'
+    context_object_name = 'post'
 
     def get_success_url(self):
         return reverse('my_posts')

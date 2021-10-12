@@ -1,9 +1,9 @@
 {% extends "../base/base.html" %}
 {% block title %}
-    Создание нового поста
+    Редактирование поста
 {% endblock %}
 {% block header %}
-    Создание нового поста
+    Редактирование поста
 {% endblock %}
 {% block content %}
 
@@ -13,7 +13,7 @@
     <div class="col-md-10 p-5">
         <div class="card">
             <div class="card-header">
-                Создать новый пост
+                Редактировать пост
             </div>
             <div class="card-body">
 
@@ -30,7 +30,7 @@
 
                     <div class="mb-3">
                       <label for="{{ form.title.id_for_label }}" class="form-label">{{ form.title.label }}</label>
-                      <input type="{{ form.title.widget_type }}" id="{{ form.title.id_for_label }}" name="{{ form.title.html_name }}" class="form-control" placeholder="{{ form.title.label }}">
+                      {{ form.title|addclass:"form-control" }}
                     </div>
 
                     <div class="mb-3">
@@ -47,12 +47,12 @@
 
                     <div class="mb-3">
                       <label for="{{ form.text.id_for_label }}" class="form-label">{{ form.text.label }}</label>
-                      <textarea type="{{ form.text.widget_type }}" id="{{ form.text.id_for_label }}" name="{{ form.text.html_name }}" class="form-control" rows="3" placeholder="{{ form.text.label }}"></textarea>
+                      {{ form.text|addclass:"form-control" }}
                     </div>
 
                   </div>
 
-                  <button type="submit" class="btn btn-success" >Создать пост</button>
+                  <button type="submit" class="btn btn-success" >Сохранить пост</button>
                 </form>
 
             </div> <!-- card body -->
