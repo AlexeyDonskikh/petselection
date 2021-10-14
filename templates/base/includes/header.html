@@ -21,10 +21,10 @@
         {% if user.is_authenticated %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {{ user.username }}
+            {{ request.user.username }}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="{% url 'profile_view' user.slug %}">Мои данные</a></li>
+            <li><a class="dropdown-item" href="{% url 'profile_view' request.user.slug %}">Мои данные</a></li>
             <li><a class="dropdown-item" href="{% url 'my_pets' %}">Мои питомцы</a></li>
             <li><a class="dropdown-item" href="{% url 'pet_add' %}">Добавить питомца</a></li>
             <li><a class="dropdown-item" href="{% url 'my_posts' %}">Мои посты</a></li>

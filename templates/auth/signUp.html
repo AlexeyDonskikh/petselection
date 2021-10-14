@@ -9,8 +9,8 @@
 {% endblock %}
 
 {% block content %}
-  <div class="main__header">
-    <h1 class="main__title">Регистрация</h1>
+  <div class="main-container">
+    <h1 class="main">Регистрация</h1>
   </div>
   <div class="form-container">
 
@@ -20,9 +20,9 @@
 
         <div class="mb-3">
             <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-            <div class="form__field-group">
+            <div class="form-row">
               {{ field|addclass:"form__input" }}
-              <span class="form__error">{{ field.errors }}</span>
+              <span class="row-form-errors">{{ field.errors }}</span>
             </div>
         </div>
 
