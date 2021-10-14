@@ -10,6 +10,7 @@ class PetAdmin(admin.ModelAdmin):
     fields = (
         'name', 'age', 'weight', 'species', 'breed', 'description', 'master'
     )
+    raw_id_fields = ('species', 'breed', 'master',)
     search_fields = ('name', 'species', 'breed', 'master', 'age')
     list_filter = ('species', 'name')
     empty_value_display = '-пусто-'
@@ -46,6 +47,7 @@ class ImagePetAdmin(admin.ModelAdmin):
     fields = (
         'pet', 'image', 'image_name',
     )
+    raw_id_fields = ('pet',)
     search_fields = ('pet',)
     list_filter = ('pet',)
     empty_value_display = '-пусто-'

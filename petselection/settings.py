@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'bootstrap_pagination',
     'crispy_forms',
+    'rest_framework_simplejwt',
+    'django_filters',
     'api',
     'users',
     'pets',
@@ -138,8 +140,14 @@ LOGIN_URL = '/auth/login/'
 LOGIN_REDIRECT_URL = 'index'
 
 REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
@@ -158,6 +166,7 @@ AUTH_USER_MODEL = 'users.User'
 
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+EMAIL = 'post@petselection.ru'
 
 PAGINATION_PAGE_SIZE = 6
 
