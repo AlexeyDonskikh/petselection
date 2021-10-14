@@ -1,6 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.db import models
+from django.utils.text import slugify
+from unidecode import unidecode
 
 from users.managers import UserManager
 
@@ -32,10 +34,9 @@ class User(AbstractUser):
 
     objects = UserManager()
 
-    def save(self):
-        if not self.id:
-            self.slug = self.username
-        super(User, self).save()
+    def save(self, *args, **kwargs):
+        self.slug = slugify(unidecode(self.username))
+        super().save(*args, **kwargs)
 
     @property
     def is_admin(self):
