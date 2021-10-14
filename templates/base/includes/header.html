@@ -29,7 +29,7 @@
             <li><a class="dropdown-item" href="{% url 'pet_add' %}">Добавить питомца</a></li>
             <li><a class="dropdown-item" href="{% url 'my_posts' %}">Мои посты</a></li>
             <li><a class="dropdown-item" href="{% url 'post_add' %}">Добавить пост</a></li>
-            <li><a class="dropdown-item" href="#">Выход</a></li>
+            <li><a class="dropdown-item" href="{% url 'logout' %}">Выход</a></li>
           </ul>
         </li>
         {% else %}
