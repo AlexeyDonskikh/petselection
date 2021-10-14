@@ -45,7 +45,7 @@ auth_urls = [
         'password/reset/<uidb64>/<token>/',
         auth_views.PasswordResetConfirmView.as_view(
             template_name='auth/resetPasswordConfirm.html',
-            success_url = reverse_lazy('password_reset_done'),
+            success_url=reverse_lazy('password_reset_done'),
         ),
         name='password_reset_confirm'
     ),
