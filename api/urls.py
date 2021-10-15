@@ -1,10 +1,18 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from api.views import PetViewSet, UserCodeViewSet, UserTokenViewSet
+from api.views import (CommentViewSet, GroupViewSet, PetViewSet, PostViewSet,
+                       UserCodeViewSet, UserTokenViewSet, UserViewSet)
 
 router = DefaultRouter()
+router.register(r'groups', GroupViewSet, basename='groups')
 router.register(r'pets', PetViewSet, basename='pets')
+router.register(r'posts', PostViewSet, basename='posts')
+router.register(r'users', UserViewSet, basename='users')
+router.register(
+    r'posts/(?P<post_slug>\d+)/comments/',
+    CommentViewSet, basename='comments')
+router.register('users', UserViewSet)
 
 
 auth_urlpatterns = [

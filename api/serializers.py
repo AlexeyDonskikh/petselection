@@ -4,6 +4,7 @@ from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from pets.models import Pet
+from posts.models import Comment, Group, Post
 from users.models import User, UserCode
 
 
@@ -31,8 +32,39 @@ class TokenObtainPairSerializer(serializers.Serializer):
         return RefreshToken.for_user(user)
 
 
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        fields = ('first_name', 'last_name', 'username', 'bio', 'role',
+                  'email')
+        model = User
+
+
 class PetSerializer(serializers.ModelSerializer):
     class Meta:
         fields = ('name', 'species', 'breed', 'age', 'weight', 'master',
                   'description',)
         model = Pet
+
+
+class PostSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = ('title', 'author', 'pet', 'group', 'text', 'pub_date',)
+        model = Post
+
+
+class GroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = ('title', 'description',)
+        model = Group
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    author = serializers.SlugRelatedField(
+        slug_field='username',
+        read_only=True
+    )
+
+    class Meta:
+        fields = ['post', 'text', 'author', 'created']
+        model = Comment
