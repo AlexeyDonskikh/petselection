@@ -1,10 +1,13 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from api.views import (CommentViewSet, GroupViewSet, PetViewSet, PostViewSet,
-                       UserCodeViewSet, UserTokenViewSet, UserViewSet)
+from api.views import (UserCodeViewSet, UserTokenViewSet, UserViewSet,
+                       SpeciesViewSet, GroupViewSet, PetViewSet, PostViewSet,
+                       CommentViewSet, BreedViewSet)
 
 router = DefaultRouter()
+router.register('species', SpeciesViewSet, basename='species')
+router.register('breed', BreedViewSet, basename='breed')
 router.register(r'groups', GroupViewSet, basename='groups')
 router.register(r'pets', PetViewSet, basename='pets')
 router.register(r'users', UserViewSet, basename='users')

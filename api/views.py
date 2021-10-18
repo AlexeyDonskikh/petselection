@@ -5,16 +5,19 @@ from django.shortcuts import get_object_or_404
 from rest_framework import filters, mixins, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.generics import CreateAPIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, SAFE_METHODS
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from api.permissions import IsAdmin, IsStaffOrAuthorOrReadOnly
-from api.serializers import (CommentSerializer, GroupSerializer, PetSerializer,
+from api.permissions import IsAdmin, IsStaffOrAuthorOrReadOnly, IsMaster, \
+    IsAdminOrReadOnly
+from api.serializers import (CommentSerializer, GroupSerializer,
                              PostSerializer, TokenObtainPairSerializer,
-                             UserCodeSerializer, UserSerializer)
-from pets.models import Pet
+                             UserCodeSerializer, UserSerializer,
+                             SpeciesSerializer, BreedSerializer,
+                             PetListSerializer, PetWriteSerializer)
+from pets.models import Pet, Species, Breed
 from petselection.settings import EMAIL
 from posts.models import Comment, Group, Post
 from users.models import User, UserCode
@@ -91,12 +94,33 @@ class UserViewSet(ModelViewSet):
         return Response(serializer.data)
 
 
-class PetViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+class CategoryViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,
+                 mixins.DestroyModelMixin, viewsets.GenericViewSet):
+    permission_classes = (IsAdminOrReadOnly,)
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['=name']
+    lookup_field = 'slug'
+    lookup_value_regex = '[^/]+'
+
+
+class SpeciesViewSet(CategoryViewSet):
+    queryset = Species.objects.all()
+    serializer_class = SpeciesSerializer
+
+
+class BreedViewSet(CategoryViewSet):
+    queryset = Breed.objects.all()
+    serializer_class = BreedSerializer
+
+
+class PetViewSet(viewsets.ModelViewSet):
     queryset = Pet.objects.all()
-    serializer_class = PetSerializer
-    filter_backends = (filters.SearchFilter, )
-    search_fields = ('^name', '^breed', '^master',)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAdminOrReadOnly,)
+
+    def get_serializer_class(self):
+        if self.request.method in SAFE_METHODS:
+            return PetListSerializer
+        return PetWriteSerializer
 
 
 class PostViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
@@ -104,7 +128,7 @@ class PostViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = PostSerializer
     filter_backends = (filters.SearchFilter, )
     search_fields = ('^author', '^title', '^pet', '^text',)
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsStaffOrAuthorOrReadOnly,)
 
 
 class GroupViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):

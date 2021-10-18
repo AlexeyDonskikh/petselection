@@ -1,9 +1,9 @@
 import datetime as dt
-
+from rest_framework.validators import UniqueValidator
 from rest_framework import serializers
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from pets.models import Pet
+from pets.models import Pet, Species, Breed
 from posts.models import Comment, Group, Post
 from users.models import User, UserCode
 
@@ -39,9 +39,52 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
 
 
-class PetSerializer(serializers.ModelSerializer):
+class SpeciesSerializer(serializers.ModelSerializer):
+    slug = serializers.SlugField(
+        max_length=30,
+        validators=[UniqueValidator(queryset=Species.objects.all())]
+    )
+
     class Meta:
-        fields = ('name', 'species', 'breed', 'age', 'weight', 'master',
+        fields = ['name', 'slug']
+        model = Species
+
+
+class BreedSerializer(serializers.ModelSerializer):
+    slug = serializers.SlugField(
+        max_length=30,
+        validators=[UniqueValidator(queryset=Breed.objects.all())]
+    )
+
+    class Meta:
+        fields = ['name', 'slug', 'species']
+        model = Breed
+
+
+class PetListSerializer(serializers.ModelSerializer):
+    species = SpeciesSerializer()
+    breed = BreedSerializer()
+    master = UserSerializer()
+
+    class Meta:
+        fields = ('id', 'name', 'species', 'breed', 'age', 'weight', 'master',
+                  'description',)
+        model = Pet
+
+
+class PetWriteSerializer(serializers.ModelSerializer):
+    species = serializers.SlugRelatedField(
+        queryset=Species.objects.all(),
+        slug_field='slug')
+    breed = serializers.SlugRelatedField(
+        queryset=Breed.objects.all(),
+        slug_field='slug')
+    master = serializers.SlugRelatedField(
+        queryset=User.objects.all(),
+        slug_field='slug')
+
+    class Meta:
+        fields = ('id', 'name', 'species', 'breed', 'age', 'weight', 'master',
                   'description',)
         model = Pet
 
@@ -59,6 +102,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
+    pet = PetListSerializer()
     comments = CommentSerializer(many=True, read_only=True)
 
     class Meta:
