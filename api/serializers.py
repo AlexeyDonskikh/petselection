@@ -1,9 +1,10 @@
 import datetime as dt
-from rest_framework.validators import UniqueValidator
+
 from rest_framework import serializers
+from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from pets.models import Pet, Species, Breed
+from pets.models import Breed, Pet, Species
 from posts.models import Comment, Group, Post
 from users.models import User, UserCode
 

@@ -5,19 +5,19 @@ from django.shortcuts import get_object_or_404
 from rest_framework import filters, mixins, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.generics import CreateAPIView
-from rest_framework.permissions import IsAuthenticated, SAFE_METHODS
+from rest_framework.permissions import SAFE_METHODS, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from api.permissions import IsAdmin, IsStaffOrAuthorOrReadOnly, IsMaster, \
-    IsAdminOrReadOnly
-from api.serializers import (CommentSerializer, GroupSerializer,
-                             PostSerializer, TokenObtainPairSerializer,
-                             UserCodeSerializer, UserSerializer,
-                             SpeciesSerializer, BreedSerializer,
-                             PetListSerializer, PetWriteSerializer)
-from pets.models import Pet, Species, Breed
+from api.permissions import (IsAdmin, IsAdminOrReadOnly, IsMaster,
+                             IsStaffOrAuthorOrReadOnly)
+from api.serializers import (BreedSerializer, CommentSerializer,
+                             GroupSerializer, PetListSerializer,
+                             PetWriteSerializer, PostSerializer,
+                             SpeciesSerializer, TokenObtainPairSerializer,
+                             UserCodeSerializer, UserSerializer)
+from pets.models import Breed, Pet, Species
 from petselection.settings import EMAIL
 from posts.models import Comment, Group, Post
 from users.models import User, UserCode
