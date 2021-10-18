@@ -33,9 +33,8 @@ class TokenObtainPairSerializer(serializers.Serializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-
     class Meta:
-        fields = ('first_name', 'last_name', 'username', 'bio', 'role',
+        fields = ('pk', 'first_name', 'last_name', 'username', 'bio', 'role',
                   'email')
         model = User
 
@@ -47,12 +46,6 @@ class PetSerializer(serializers.ModelSerializer):
         model = Pet
 
 
-class PostSerializer(serializers.ModelSerializer):
-    class Meta:
-        fields = ('title', 'author', 'pet', 'group', 'text', 'pub_date',)
-        model = Post
-
-
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         fields = ('title', 'description',)
@@ -60,11 +53,22 @@ class GroupSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    author = serializers.SlugRelatedField(
-        slug_field='username',
-        read_only=True
-    )
-
     class Meta:
         fields = ['post', 'text', 'author', 'created']
         model = Comment
+
+
+class PostSerializer(serializers.ModelSerializer):
+    comments = CommentSerializer(many=True, read_only=True)
+
+    class Meta:
+        fields = ('title', 'author', 'pet', 'group', 'text', 'pub_date',
+                  'comments')
+        model = Post
+
+    def create(self, validated_data):
+        comments_data = validated_data.pop('comments')
+        post = Post.objects.create(**validated_data)
+        for comment_data in comments_data:
+            Comment.objects.create(post=post, **comment_data)
+        return post

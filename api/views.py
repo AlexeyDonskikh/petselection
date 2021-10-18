@@ -120,12 +120,12 @@ class CommentViewSet(viewsets.ModelViewSet):
     permission_classes = (IsStaffOrAuthorOrReadOnly,)
 
     def get_queryset(self):
-        comments = Comment.objects.filter(review=self.get_post())
+        comments = Comment.objects.filter(post=self.get_post())
         return comments
 
     def get_post(self):
-        review = get_object_or_404(Post, slug=self.kwargs.get('slug'))
+        review = get_object_or_404(Post, id=self.kwargs.get('post_id'))
         return review
 
     def perform_create(self, serializer):
-        serializer.save(author=self.request.user, review=self.get_post())
+        serializer.save(author=self.request.user, post=self.get_post())

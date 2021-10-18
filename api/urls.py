@@ -7,12 +7,12 @@ from api.views import (CommentViewSet, GroupViewSet, PetViewSet, PostViewSet,
 router = DefaultRouter()
 router.register(r'groups', GroupViewSet, basename='groups')
 router.register(r'pets', PetViewSet, basename='pets')
-router.register(r'posts', PostViewSet, basename='posts')
 router.register(r'users', UserViewSet, basename='users')
 router.register(
-    r'posts/(?P<post_slug>\d+)/comments/',
-    CommentViewSet, basename='comments')
-router.register('users', UserViewSet)
+    r'posts/(?P<post_id>[\d]+)/comments',
+    CommentViewSet, basename='comments'
+)
+router.register(r'posts', PostViewSet, basename='posts')
 
 
 auth_urlpatterns = [
